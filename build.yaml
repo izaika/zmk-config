@@ -19,6 +19,6 @@
 ---
 include:
   - board: nice_nano_v2
-    shield: chocofi_left
+    shield: microdox_v2_left
   - board: nice_nano_v2
-    shield: chocofi_right
+    shield: microdox_v2_right
