@@ -8,6 +8,15 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    behaviors {
+        td_alt_ctrl: td_alt_ctrl {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp RALT>, <&kp LCTRL>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -22,7 +31,7 @@
 &none  &kp Q  &kp W  &kp E     &kp R  &kp T         &kp Y      &kp U  &kp I      &kp O    &kp P     &none
 &none  &kp A  &kp S  &kp D     &kp F  &kp G         &kp H      &kp J  &kp K      &kp L    &kp SEMI  &none
 &none  &kp Z  &kp X  &kp C     &kp V  &kp B         &kp N      &kp M  &kp COMMA  &kp DOT  &kp FSLH  &none
-                     &kp LGUI  &mo 2  &kp LSHIFT    &kp SPACE  &mo 1  &kp RALT
+                     &kp LGUI  &mo 2  &kp LSHIFT    &kp SPACE  &mo 1  &td_alt_ctrl
             >;
         };
 
