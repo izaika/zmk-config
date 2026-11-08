@@ -8,10 +8,23 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 
+// Bluetooth keys fire only after being held this long.
+#define BT_HOLD_MS 3000
+
 / {
     chosen {
         // Chocofi has 5 columns per side: use ZMK's 36-key Corne layout.
         zmk,physical-layout = &foostan_corne_5col_layout;
+    };
+
+    macros {
+        // &bt BT_SEL <n>, with n taken from the macro's parameter
+        // (a hold-tap forwards only one parameter to its hold binding).
+        bt_sel_m: bt_sel_m {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings = <&macro_param_1to2 &bt BT_SEL MACRO_PLACEHOLDER>;
+        };
     };
 
     behaviors {
@@ -20,6 +33,24 @@
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp RALT>, <&kp LCTRL>;
+        };
+
+        // Bluetooth keys: the action fires only after BT_HOLD_MS of holding.
+        // A shorter press, or pressing another key meanwhile, does nothing.
+        hold_bt: hold_bt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <BT_HOLD_MS>;
+            bindings = <&bt>, <&none>;
+        };
+
+        hold_bt_sel: hold_bt_sel {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <BT_HOLD_MS>;
+            bindings = <&bt_sel_m>, <&none>;
         };
     };
 
@@ -61,13 +92,13 @@
 
         layer_3 {
             // Hold both middle thumbs.
-            // Bluetooth: A = BT_CLR (forget host on current profile), Z X C V B = BT_SEL 0..4.
+            // Bluetooth (hold for BT_HOLD_MS): A = BT_CLR (forget host on current profile), Z X C V B = BT_SEL 0..4.
             display-name = "Fn";
             bindings = <
-&kp F1        &kp F2        &kp F3             &kp F4           &kp F5        &kp F6      &kp F7        &kp F8         &kp F9  &kp F10
-&bt BT_CLR    &none         &kp C_VOLUME_DOWN  &kp C_VOLUME_UP  &kp K_MUTE    &none       &none         &none          &none   &none
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2       &bt BT_SEL 3     &bt BT_SEL 4  &kp LG(N0)  &kp LG(PLUS)  &kp LG(MINUS)  &none   &none
-                            &none              &trans           &trans        &kp RSHIFT  &trans        &none
+&kp F1            &kp F2            &kp F3             &kp F4            &kp F5              &kp F6      &kp F7        &kp F8         &kp F9  &kp F10
+&hold_bt BT_CLR   &none             &kp C_VOLUME_DOWN  &kp C_VOLUME_UP   &kp K_MUTE          &none       &none         &none          &none   &none
+&hold_bt_sel 0 0  &hold_bt_sel 1 0  &hold_bt_sel 2 0   &hold_bt_sel 3 0  &hold_bt_sel 4 0    &kp LG(N0)  &kp LG(PLUS)  &kp LG(MINUS)  &none   &none
+                                    &none              &trans            &trans              &kp RSHIFT  &trans        &none
             >;
         };
     };
