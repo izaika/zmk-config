@@ -1,0 +1,155 @@
+# keymap-drawer settings used by scripts/draw-keymap.sh (https://github.com/caksoylar/keymap-drawer).
+# Based on `keymap dump-config` of keymap-drawer 0.23.0; fields not listed keep their defaults.
+# zmk_keycode_map replaces the built-in map as a whole, so its defaults are kept at the end.
+draw_config:
+  dark_mode: auto
+  # Own background, so the picture stays readable when the page theme differs from the OS theme.
+  # Bluetooth keys (type: bt below) are blue; red is keymap-drawer's color for held layer keys.
+  svg_extra_style: |
+    svg.keymap { background-color: #ffffff; }
+    rect.bt { fill: #dbeafe; stroke: #2563eb; }
+    @media (prefers-color-scheme: dark) {
+      svg.keymap { background-color: #0d1117; }
+      rect.bt { fill: #1e3a5f; stroke: #60a5fa; }
+    }
+parse_config:
+  raw_binding_map:
+    # Hold-taps from config/corne.keymap that fire only after BT_HOLD_MS (3 s).
+    '&hold_bt BT_CLR': {t: BT CLR, h: hold 3s, type: bt}
+    '&hold_bt_sel 0 0': {t: BT 0, h: hold 3s, type: bt}
+    '&hold_bt_sel 1 0': {t: BT 1, h: hold 3s, type: bt}
+    '&hold_bt_sel 2 0': {t: BT 2, h: hold 3s, type: bt}
+    '&hold_bt_sel 3 0': {t: BT 3, h: hold 3s, type: bt}
+    '&hold_bt_sel 4 0': {t: BT 4, h: hold 3s, type: bt}
+    # Tap dance: tap = Right Alt, double tap = Left Ctrl.
+    '&td_alt_ctrl': {t: ⌥, s: 2× ⌃}
+  modifier_fn_map:
+    left_ctrl: ⌃
+    right_ctrl: ⌃
+    left_shift: ⇧
+    right_shift: ⇧
+    left_alt: ⌥
+    right_alt: ⌥
+    left_gui: ⌘
+    right_gui: ⌘
+    keycode_combiner: '{mods}{key}'
+    mod_combiner: '{mod_1}{mod_2}'
+    special_combinations:
+      left_ctrl+left_alt+left_gui+left_shift: Hyper
+      left_ctrl+left_alt+left_shift: Meh
+  zmk_keycode_map:
+    # macOS glyphs
+    LGUI: ⌘
+    LEFT_GUI: ⌘
+    LCMD: ⌘
+    LEFT_COMMAND: ⌘
+    RGUI: ⌘
+    RIGHT_GUI: ⌘
+    RCMD: ⌘
+    RIGHT_COMMAND: ⌘
+    LCTRL: ⌃
+    LEFT_CONTROL: ⌃
+    RCTRL: ⌃
+    RIGHT_CONTROL: ⌃
+    LALT: ⌥
+    LEFT_ALT: ⌥
+    LOPT: ⌥
+    RALT: ⌥
+    RIGHT_ALT: ⌥
+    ROPT: ⌥
+    LSHIFT: ⇧
+    LEFT_SHIFT: ⇧
+    LSHFT: ⇧
+    RSHIFT: ⇧
+    RIGHT_SHIFT: ⇧
+    RSHFT: ⇧
+    SPACE: ␣
+    ENTER: ⏎
+    RETURN: ⏎
+    RET: ⏎
+    BACKSPACE: ⌫
+    BSPC: ⌫
+    TAB: ⇥
+    ESCAPE: Esc
+    ESC: Esc
+    CAPSLOCK: ⇪
+    CAPS: ⇪
+    UP_ARROW: ↑
+    UP: ↑
+    DOWN_ARROW: ↓
+    DOWN: ↓
+    LEFT_ARROW: ←
+    LEFT: ←
+    RIGHT_ARROW: →
+    RIGHT: →
+    C_VOLUME_UP: Vol +
+    C_VOL_UP: Vol +
+    C_VOLUME_DOWN: Vol −
+    C_VOL_DN: Vol −
+    C_MUTE: Mute
+    K_MUTE: Mute
+    # keymap-drawer defaults
+    EXCLAMATION: '!'
+    EXCL: '!'
+    AT_SIGN: '@'
+    AT: '@'
+    HASH: '#'
+    POUND: '#'
+    DOLLAR: $
+    DLLR: $
+    PERCENT: '%'
+    PRCNT: '%'
+    CARET: ^
+    AMPERSAND: '&'
+    AMPS: '&'
+    ASTERISK: '*'
+    ASTRK: '*'
+    STAR: '*'
+    LEFT_PARENTHESIS: (
+    LPAR: (
+    RIGHT_PARENTHESIS: )
+    RPAR: )
+    EQUAL: '='
+    PLUS: +
+    MINUS: '-'
+    UNDERSCORE: _
+    UNDER: _
+    SLASH: /
+    FSLH: /
+    QUESTION: '?'
+    QMARK: '?'
+    BACKSLASH: \
+    BSLH: \
+    PIPE: '|'
+    NON_US_BACKSLASH: \
+    PIPE2: '|'
+    NON_US_BSLH: '|'
+    SEMICOLON: ;
+    SEMI: ;
+    COLON: ':'
+    SINGLE_QUOTE: ''''
+    SQT: ''''
+    APOSTROPHE: ''''
+    APOS: ''''
+    DOUBLE_QUOTES: '"'
+    DQT: '"'
+    COMMA: ','
+    LESS_THAN: <
+    LT: <
+    PERIOD: .
+    DOT: .
+    GREATER_THAN: '>'
+    GT: '>'
+    LEFT_BRACKET: '['
+    LBKT: '['
+    LEFT_BRACE: '{'
+    LBRC: '{'
+    RIGHT_BRACKET: ']'
+    RBKT: ']'
+    RIGHT_BRACE: '}'
+    RBRC: '}'
+    GRAVE: '`'
+    TILDE: '~'
+    NON_US_HASH: '#'
+    NUHS: '#'
+    TILDE2: '~'
